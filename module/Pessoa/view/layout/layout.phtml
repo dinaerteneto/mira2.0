@@ -1,0 +1,108 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>MIRA 2.0</title>
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css">
+        <!-- #FAVICONS -->
+        <link rel="shortcut icon" href="/img/favicon/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/img/favicon/favicon.ico" type="image/x-icon">
+        <!-- #GOOGLE FONT -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
+        <!-- #APP SCREEN / ICONS -->
+        <link rel="apple-touch-icon" href="/img/splash/sptouch-icon-iphone.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/img/splash/touch-icon-ipad.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/img/splash/touch-icon-iphone-retina.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/img/splash/touch-icon-ipad-retina.png">
+        <!-- Startup image for web apps -->
+        <link rel="apple-touch-startup-image" href="/img/splash/ipad-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
+        <link rel="apple-touch-startup-image" href="/img/splash/ipad-portrait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
+        <link rel="apple-touch-startup-image" href="/img/splash/iphone.png" media="screen and (max-device-width: 320px)">
+                
+        <!-- iOS web-app metas : hides Safari UI Components and Changes Status Bar Appearance -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">               
+    </head>
+    <body class="">
+        <!-- #HEADER -->
+        <?php echo $this->partial('_header'); ?>
+        <!-- END HEADER -->
+        <!-- #NAVIGATION -->
+        <!-- Left panel : Navigation area -->
+        <!-- Note: This width of the aside area can be adjusted through LESS variables -->
+        <aside id="left-panel">
+            <!-- User info -->
+            <div class="login-info">
+                <span> <!-- User image size is adjusted inside CSS, it should stay as it --> 
+                    <a href="javascript:void(0);" id="show-shortcut" data-action="toggleShortcut">
+                        <img src="/img/avatars/sunny.png" alt="me" class="online" /> 
+                        <span>
+                            john.doe 
+                        </span>
+                        <i class="fa fa-angle-down"></i>
+                    </a> 
+                </span>
+            </div>
+            <!-- end user info -->
+            <!-- NAVIGATION : This navigation is also responsive -->
+            <?php echo $this->partial('_menu'); ?>
+        </aside>
+        <!-- END NAVIGATION -->
+
+        <!-- MAIN PANEL -->
+        <div id="main" role="main">
+            <!-- RIBBON -->
+            <div id="ribbon">
+                <span class="ribbon-button-alignment"> 
+                    <span id="refresh" class="btn btn-ribbon" data-action="resetWidgets" data-title="refresh"  rel="tooltip" data-placement="bottom" data-original-title="<i class='text-warning fa fa-warning'></i> Warning! This will reset all your widget settings." data-html="true">
+                        <i class="fa fa-refresh"></i>
+                    </span> 
+                </span>
+                <!-- breadcrumb -->
+                
+                <!-- end breadcrumb -->
+            </div>
+            <!-- END RIBBON -->
+            
+            <!-- MAIN CONTENT -->
+            <div id="content">
+                <!-- widget grid -->
+                <section id="widget-grid" class="">
+                    <!-- row -->
+                    <div class="row">
+                        <!-- NEW WIDGET START -->
+                        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <?= $content ?>
+                        </article>
+                        <!-- WIDGET END -->
+                    </div>
+                    <!-- end row -->
+
+                    <!-- row -->
+                    <div class="row">
+                        <!-- a blank row to get started -->
+                        <div class="col-sm-12">
+                            <!-- your contents here -->
+                        </div>
+                    </div>
+                    <!-- end row -->
+                </section>
+                <!-- end widget grid -->
+            </div>
+            <!-- END MAIN CONTENT -->
+        </div>
+        <!-- END MAIN PANEL -->
+
+        <!-- PAGE FOOTER -->
+        <?php echo $this->partial('_footer'); ?>
+        <!-- END PAGE FOOTER -->
+        <!--================================================== -->
+        <!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
+        <script data-pace-options='{ "restartOnRequestAfter": true }' src="/js/plugin/pace/pace.min.js"></script>
+        <script data-main="/js/app" src="/js/libs/require.js"></script>
+    </body>
+</html>

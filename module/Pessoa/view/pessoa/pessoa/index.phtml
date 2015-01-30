@@ -1,0 +1,94 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark">
+            <i class="fa fa-table fa-fw "></i> 
+            Usuários 
+            <span>&gt; 
+                Visualizar
+            </span>
+        </h1>
+    </div>
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+        <ul class="" id="sparks">
+            <li class="sparks-info">
+                <h5> My Income <span class="txt-color-blue">$47,171</span></h5>
+                <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm"><canvas style="display: inline-block; width: 89px; height: 26px; vertical-align: top;" width="89" height="26"></canvas></div>
+            </li>
+            <li class="sparks-info">
+                <h5> Site Traffic <span class="txt-color-purple"><i title="Increased" data-rel="bootstrap-tooltip" class="fa fa-arrow-circle-up"></i>&nbsp;45%</span></h5>
+                <div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm"><canvas style="display: inline-block; width: 82px; height: 26px; vertical-align: top;" width="82" height="26"></canvas></div>
+            </li>
+            <li class="sparks-info">
+                <h5> Site Orders <span class="txt-color-greenDark"><i class="fa fa-shopping-cart"></i>&nbsp;2447</span></h5>
+                <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm"><canvas style="display: inline-block; width: 82px; height: 26px; vertical-align: top;" width="82" height="26"></canvas></div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<section class="" id="widget-grid">
+    <div class="row">
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+            <div data-widget-editbutton="false" id="wid-id-0" class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" style="" role="widget">
+                <header role="heading">
+                    <div class="jarviswidget-ctrls" role="menu">   
+                        <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse">
+                            <i class="fa fa-minus "></i>
+                        </a> 
+                        <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-fullscreen-btn" href="javascript:void(0);" data-original-title="Fullscreen">
+                            <i class="fa fa-expand "></i>
+                        </a> 
+                        <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-delete-btn" href="javascript:void(0);" data-original-title="Delete">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+
+                    <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                    <h2>Usuários</h2>
+
+                    <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
+                </header>
+                <div role="content">
+                    <div class="jarviswidget-editbox">
+                    </div>
+                    <div class="widget-body">
+                        <div class="table-responsive">
+                            <a href="<?= $this->urlAdd ?>" title="Incluir"><i class="fa fa-edit"></i> Incluir</a>
+
+                            <?php
+                            $form = $this->form;
+
+                            $form->setAttribute('action', $this->url('pessoa',array('controller'=>'pessoa','action'=>'index')));
+                            $form->prepare();
+                            echo $this->form()->openTag($form);
+                            
+                            echo $this->formRow($form->get('nome'));
+                            
+                            echo $this->formSubmit($form->get('submit'));
+                            echo $this->form()->closeTag();
+                            ?>
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th width="5%">&nbsp;</th>
+                                        <th>ID</th>
+                                        <th>Login</th>
+                                        <th>Nome</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?= $this->partialLoop('pessoa/pessoa/_list.phtml', $this->paginator) ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <?= $this->paginationControl($this->paginator, 'Sliding', 'pagination', array('route' => 'pessoa')); ?>
+                    </div>
+                    <!-- end widget content -->
+                </div>
+                <!-- end widget div -->
+            </div>
+        </article>
+    </div>
+</section>
