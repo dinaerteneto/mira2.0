@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Controlador abstrato
  * Todos os controladores devem herdar este controlador abstrato.
@@ -82,7 +81,13 @@ abstract class AbstractDoctrineCrudController extends AbstractActionController {
 
         $urlAction = $this->url()->fromRoute($this->route, array('action' => 'create'));
 
-        return $this->save($model, $form, $urlAction, null);
+        $this->save($model, $form);
+        
+        return array(
+            'form' => $form,
+            'urlAction' => $urlAction,
+            'title' => $this->setAndGetTitle()
+        );
     }
 
     /**
@@ -102,7 +107,7 @@ abstract class AbstractDoctrineCrudController extends AbstractActionController {
 
         $model = $this->getModel($key);
         $formClass = $this->formClass;
-        $form = new $formClass();
+        $form = new $formClass($GLOBALS['entityManager']);
         $form->bind($model);
         $form->get('submit')->setAttribute('value', $this->label['edit']);
 
@@ -110,19 +115,24 @@ abstract class AbstractDoctrineCrudController extends AbstractActionController {
             'action' => 'update',
             'key' => $key
         ));
-
-        return $this->save($model, $form, $urlAction, $key);
+        
+        $this->save($model, $form);
+        
+        return array(
+            'key' => $key,
+            'form' => $form,
+            'urlAction' => $urlAction,
+            'title' => $this->setAndGetTitle()
+        );
     }
 
     /**
      * persiste um registro na entidade
      * @param Vivo\Entity\AbstractEntity $model
      * @param Zend\Form\Form $form
-     * @param String $urlAction
-     * @param integer $key
-     * @return array
+     * @return Entity
      */
-    protected function save($model, $form, $urlAction, $key) {
+    protected function save($model, $form) {
         $request = $this->getRequest();
         if ($request->isPost()) {
             $form->setInputFilter($model->getInputFilter());
@@ -131,19 +141,14 @@ abstract class AbstractDoctrineCrudController extends AbstractActionController {
             if ($form->isValid()) {
                 $model->exchangeArray($form->getData());
                 $em = $GLOBALS['entityManager'];
+
                 $em->persist($model);
                 $em->flush();
-
-                return $this->redirect()->toRoute($this->route);
+                
+                return $model;
             }
         }
-
-        return array(
-            'key' => $key,
-            'form' => $form,
-            'urlAction' => $urlAction,
-            'title' => $this->setAndGetTitle()
-        );
+        return $model;
     }
 
     /**

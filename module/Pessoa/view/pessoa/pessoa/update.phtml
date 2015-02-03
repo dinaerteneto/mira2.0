@@ -1,22 +1,26 @@
-<h3>Editando Pessoa</h3>
+<article class="col-sm-12 col-md-12 col-lg-6 sortable-grid ui-sortable">
+    <div data-widget-custombutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" id="wid-id-1" class="jarviswidget jarviswidget-sortable" role="widget">
+        <header role="heading">
+            <div class="jarviswidget-ctrls" role="menu">   
+                <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a> 
+                <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-fullscreen-btn" href="javascript:void(0);" data-original-title="Fullscreen"><i class="fa fa-expand "></i></a> 
+                <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-delete-btn" href="javascript:void(0);" data-original-title="Delete"><i class="fa fa-times"></i></a>
+            </div>
+            <span class="widget-icon"><i class="fa fa-edit"></i></span>
+            <h2>Cadastro de pessoas xs</h2>
+            <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
+        </header>
 
-<br />
-
-<?php
-$form = $this->form; 
-
-$form->setAttribute('action', $this->urlAction);
-$form->prepare();
-echo $this->form()->openTag($form);
-//echo $this->formHidden($form->get('id'));
-
-echo $this->formRow($form->get('nome'));
-echo $this->formRow($form->get('re'));
-echo $this->formRow($form->get('data_nascimento'));
-
-echo $this->formRow($form->get('login'));
-echo $this->formRow($form->get('senha'));
-
-echo $this->formSubmit($form->get('submit'));
-echo $this->form()->closeTag();
-?>
+        <div role="content">
+            <!-- widget edit box -->
+            <div class="jarviswidget-editbox">
+                <!-- This area used as dropdown edit box -->
+            </div>
+            <!-- end widget edit box -->
+            <!-- widget content -->
+            <div class="widget-body no-padding">
+                 <?= $this->partial('_form.phtml', array('form' => $this->form)) ?>
+            </div>
+        </div>
+    </div>
+</article>

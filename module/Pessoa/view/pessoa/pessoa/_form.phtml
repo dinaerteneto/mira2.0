@@ -1,0 +1,53 @@
+<?php
+//$form = $this->form;
+$form->setAttribute('action', $this->urlAction);
+$form->setAttribute('class', 'smart-form');
+$form->prepare();
+?>
+
+<?= $this->form()->openTag($form); ?>
+
+<header>
+    Usuário
+</header>
+
+<fieldset>                    
+    <section>
+        <label class="input">
+            <?= $this->formInput($form->get('nome')) ?>
+        </label>
+    </section>
+
+    <section>
+        <label class="input">
+            <?= $this->formInput($form->get('re')) ?>
+        </label>
+    </section>            
+
+    <section>
+        <label class="input">
+            <?= $this->formInput($form->get('data_nascimento')->setAttribute('class', 'mask-datepicker')) ?>
+        </label>
+    </section>                    
+
+</fieldset>
+
+<fieldset>
+    <section>
+        <label class="input">
+            <?= $this->formInput($form->get('login')) ?>
+        </label> 
+    </section>
+
+    <section>
+        <label class="input">
+            <?= $this->formInput($form->get('senha')) ?>
+        </label>                         
+    </section>
+
+</fieldset>
+
+<footer>
+    <?= $this->formSubmit($form->get('submit')->setAttribute('class', 'btn btn-primary')); ?>
+</footer>
+<?= $this->form()->closeTag(); ?>

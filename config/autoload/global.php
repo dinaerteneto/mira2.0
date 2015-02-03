@@ -14,8 +14,8 @@
 return array(
     
     'doctrine_config' => array(
-        //'driver' => 'pdo_sqlsrv',
-        'driver' => 'sqlsrv',
+        'driver' => 'pdo_sqlsrv',
+        //'driver' => 'sqlsrv',
         'host' => 'localhost',
         'user' => 'mira',
         'password' => 'mira',

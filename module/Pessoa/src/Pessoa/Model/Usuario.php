@@ -3,7 +3,6 @@
 namespace Pessoa\Model;
 
 use Doctrine\ORM\Mapping as ORM;
-
 use Vivo\Entity\AbstractEntity;
 use Vivo\InputFilter\InputFilter;
 use Zend\Filter\StripTags;
@@ -19,7 +18,7 @@ class Usuario extends AbstractEntity {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
+     * @ORM\OneToOne(targetEntity="Pessoa") 
      * @var int
      */
     protected $id;
@@ -35,16 +34,24 @@ class Usuario extends AbstractEntity {
      * @var string
      */
     protected $senha;
+    
+    /**
+     * @ORM\Column(type="text")
+     * @var string
+     */
+    protected $salt;
 
     /**
      * @ORM\Column(type="boolean")
      * @var string
      */
     protected $ativo;
-    
+
     /**
-     * @ORM\OnetoOne(targetEntity="Pessoa")
+     * @ORM\Id
+     * @ORM\OneToOne(targetEntity="Pessoa")
      * @ORM\JoinColumn(name="id", referencedColumnName="id")
+     * @var type 
      */
     protected $pessoa;
 
@@ -67,7 +74,11 @@ class Usuario extends AbstractEntity {
     public function getPessoa() {
         return $this->pessoa;
     }
-
+    
+    public function setId($id) {
+        $this->id = $id;
+    }
+    
     public function setLogin($login) {
         $this->login = $login;
     }
@@ -76,6 +87,10 @@ class Usuario extends AbstractEntity {
         $this->senha = $senha;
     }
 
+    public function setSalt($salt) {
+        $this->salt = $salt;
+    }    
+    
     public function setAtivo($ativo) {
         $this->ativo = $ativo;
     }
@@ -97,7 +112,7 @@ class Usuario extends AbstractEntity {
                 'enconding' => 'UTF-8',
                 'min' => 2,
                 'max' => 30
-                    )
+                )
                 )
             );
             $this->inputFilter = $inputFilter;

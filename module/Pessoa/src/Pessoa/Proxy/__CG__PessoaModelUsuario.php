@@ -64,10 +64,10 @@ class Usuario extends \Pessoa\Model\Usuario implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return array('__isInitialized__', 'id', 'login', 'senha', 'ativo', 'pessoa', 'inputFilter');
+            return array('__isInitialized__', 'usuario_id', 'login', 'senha', 'ativo', 'inputFilter');
         }
 
-        return array('__isInitialized__', 'id', 'login', 'senha', 'ativo', 'pessoa', 'inputFilter');
+        return array('__isInitialized__', 'usuario_id', 'login', 'senha', 'ativo', 'inputFilter');
     }
 
     /**
@@ -178,10 +178,6 @@ class Usuario extends \Pessoa\Model\Usuario implements \Doctrine\ORM\Proxy\Proxy
      */
     public function getId()
     {
-        if ($this->__isInitialized__ === false) {
-            return (int)  parent::getId();
-        }
-
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getId', array());
 

@@ -17,8 +17,9 @@ class Pessoa extends AbstractEntity {
 
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * var int
      */
     protected $id;
 
@@ -58,12 +59,7 @@ class Pessoa extends AbstractEntity {
      */
     protected $data_cadastro;
 
-    /**
-     * @ORM\OnetoOne(targetEntity="Usuario")
-     * @ORM\JoinColumn(name="id", referencedColumnName="id")
-     */
-    protected $usuario;
-
+    
     public function getId() {
         return $this->id;
     }
@@ -90,10 +86,6 @@ class Pessoa extends AbstractEntity {
 
     public function getDataCadastro() {
         return $this->data_cadastro;
-    }
-
-    public function getUsuario() {
-        return $this->usuario;
     }
     
     public function setId($id) {
@@ -123,11 +115,16 @@ class Pessoa extends AbstractEntity {
     public function setDataCadastro($data_cadastro) {
         $this->data_cadastro = $data_cadastro;
     }
-
-    public function setUsuario($usuario) {
+    
+    public function setUsuario(Pessoa\Model\Usuario $usuario) {
         $this->usuario = $usuario;
     }
-
+    
+    public function getUsuario() {
+        $em = $GLOBALS['entityManager'];
+        return $em->getRepository('\Pessoa\Model\Usuario')->findOneBy(array('id' => $this->getId()));
+    }
+    
     public function getArrayCopy() {
         return get_object_vars($this);
     }

@@ -12,6 +12,7 @@ abstract class AbstractForm extends Form {
             $element = new Select();
             $element->setLabel($label)
                     ->setAttribute($attributes)
+                    ->setAttribute('placeholder', $label)
                     ->setOption($options);
         } else {
             $attributes['type'] = $type;
@@ -20,6 +21,7 @@ abstract class AbstractForm extends Form {
             } else {
                 $options['label'] = $label;
             }
+            $attributes['placeholder'] = $label;
             $element = array(
                 'name' => $name,
                 'attributes' => $attributes,
