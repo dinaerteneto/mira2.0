@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ba6cb3d82d1824c5fc1fa1873e871a33",
+    "hash": "4b06d5e4619eee2218af8685e8c8ffac",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -80,12 +80,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "dbeacc7bf5bcec39f7e02aa751adac2cb1ff256a"
+                "reference": "15334410a781da60f861df536b460f24c8f01eeb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/dbeacc7bf5bcec39f7e02aa751adac2cb1ff256a",
-                "reference": "dbeacc7bf5bcec39f7e02aa751adac2cb1ff256a",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/15334410a781da60f861df536b460f24c8f01eeb",
+                "reference": "15334410a781da60f861df536b460f24c8f01eeb",
                 "shasum": ""
             },
             "require": {
@@ -142,7 +142,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2015-01-17 21:05:51"
+            "time": "2015-02-01 04:40:53"
         },
         {
             "name": "doctrine/collections",
@@ -284,17 +284,71 @@
             "time": "2015-01-23 18:43:22"
         },
         {
+            "name": "doctrine/data-fixtures",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/data-fixtures.git",
+                "reference": "80401e8a3b6364287b80922fa303fc86d75714db"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/80401e8a3b6364287b80922fa303fc86d75714db",
+                "reference": "80401e8a3b6364287b80922fa303fc86d75714db",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/common": "~2.2",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "doctrine/orm": "~2.4"
+            },
+            "suggest": {
+                "doctrine/mongodb-odm": "For loading MongoDB ODM fixtures",
+                "doctrine/orm": "For loading ORM fixtures",
+                "doctrine/phpcr-odm": "For loading PHPCR ODM fixtures"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\DataFixtures": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                }
+            ],
+            "description": "Data Fixtures for all Doctrine Object Managers",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "database"
+            ],
+            "time": "2015-01-19 01:52:30"
+        },
+        {
             "name": "doctrine/dbal",
             "version": "2.5.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "c6eaae53e1bf4adab38668eadb098fc1ad8a6c31"
+                "reference": "42440c330deed595f773fd8e70eee519c7d5dbbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/c6eaae53e1bf4adab38668eadb098fc1ad8a6c31",
-                "reference": "c6eaae53e1bf4adab38668eadb098fc1ad8a6c31",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/42440c330deed595f773fd8e70eee519c7d5dbbe",
+                "reference": "42440c330deed595f773fd8e70eee519c7d5dbbe",
                 "shasum": ""
             },
             "require": {
@@ -352,7 +406,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2015-01-28 22:19:36"
+            "time": "2015-01-30 11:30:31"
         },
         {
             "name": "doctrine/doctrine-module",
@@ -442,12 +496,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineORMModule.git",
-                "reference": "61827e4ed682727ac83de88c3cdb8075e71a53c2"
+                "reference": "3ad3fe79d384969afbc1a6373beece4abca322dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineORMModule/zipball/61827e4ed682727ac83de88c3cdb8075e71a53c2",
-                "reference": "61827e4ed682727ac83de88c3cdb8075e71a53c2",
+                "url": "https://api.github.com/repos/doctrine/DoctrineORMModule/zipball/3ad3fe79d384969afbc1a6373beece4abca322dc",
+                "reference": "3ad3fe79d384969afbc1a6373beece4abca322dc",
                 "shasum": ""
             },
             "require": {
@@ -517,7 +571,7 @@
                 "orm",
                 "zf2"
             ],
-            "time": "2015-01-26 13:38:28"
+            "time": "2015-01-30 09:33:18"
         },
         {
             "name": "doctrine/inflector",
@@ -700,12 +754,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "64ef89ce4cfe2b41c3f7225471cf450fa8e28bbf"
+                "reference": "4c68a38bd6b7d590dbfa90b2bb116129381935ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/64ef89ce4cfe2b41c3f7225471cf450fa8e28bbf",
-                "reference": "64ef89ce4cfe2b41c3f7225471cf450fa8e28bbf",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/4c68a38bd6b7d590dbfa90b2bb116129381935ce",
+                "reference": "4c68a38bd6b7d590dbfa90b2bb116129381935ce",
                 "shasum": ""
             },
             "require": {
@@ -769,7 +823,60 @@
                 "database",
                 "orm"
             ],
-            "time": "2015-01-29 03:11:49"
+            "time": "2015-02-04 21:42:55"
+        },
+        {
+            "name": "hounddog/doctrine-data-fixture-module",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Hounddog/DoctrineDataFixtureModule.git",
+                "reference": "a083e3aa1407e449c06d3c8da99e8a04429c4fc3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Hounddog/DoctrineDataFixtureModule/zipball/a083e3aa1407e449c06d3c8da99e8a04429c4fc3",
+                "reference": "a083e3aa1407e449c06d3c8da99e8a04429c4fc3",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/data-fixtures": "1.0.*",
+                "doctrine/doctrine-orm-module": "~0.7",
+                "php": ">=5.3.3",
+                "zendframework/zend-eventmanager": "2.*",
+                "zendframework/zend-modulemanager": "2.*",
+                "zendframework/zend-servicemanager": "2.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*",
+                "satooshi/php-coveralls": ">=0.6.0",
+                "squizlabs/php_codesniffer": "1.4.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "DoctrineDataFixtureModule": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Martin Shwalbe",
+                    "email": "martin.shwalbe@gmail.com"
+                }
+            ],
+            "description": "Zend Framework 2 Module that provides Doctrine Data-Fixture functionality",
+            "homepage": "http://www.doctrine-project.org/",
+            "keywords": [
+                "data-fixture",
+                "doctrine",
+                "module",
+                "zf2"
+            ],
+            "time": "2014-11-12 08:46:51"
         },
         {
             "name": "symfony/console",
@@ -778,12 +885,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "9f041fb5735b0d25d117e77ab8597a8376c74fbd"
+                "reference": "e30a2778069b48bd1e560e4a2815d15c9ab2f563"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/9f041fb5735b0d25d117e77ab8597a8376c74fbd",
-                "reference": "9f041fb5735b0d25d117e77ab8597a8376c74fbd",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/e30a2778069b48bd1e560e4a2815d15c9ab2f563",
+                "reference": "e30a2778069b48bd1e560e4a2815d15c9ab2f563",
                 "shasum": ""
             },
             "require": {
@@ -826,7 +933,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2015-01-25 05:59:26"
+            "time": "2015-02-05 07:11:58"
         },
         {
             "name": "zendframework/zendframework",
@@ -834,12 +941,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zf2.git",
-                "reference": "0e4e808db74353c0334af36aa6d9241aeccb81ab"
+                "reference": "be0b3496b73a61a255d05e945b75f6fdf0995c31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/0e4e808db74353c0334af36aa6d9241aeccb81ab",
-                "reference": "0e4e808db74353c0334af36aa6d9241aeccb81ab",
+                "url": "https://api.github.com/repos/zendframework/zf2/zipball/be0b3496b73a61a255d05e945b75f6fdf0995c31",
+                "reference": "be0b3496b73a61a255d05e945b75f6fdf0995c31",
                 "shasum": ""
             },
             "require": {
@@ -944,7 +1051,7 @@
                 "framework",
                 "zf2"
             ],
-            "time": "2015-01-25 05:55:09"
+            "time": "2015-02-03 00:01:00"
         },
         {
             "name": "zendframework/zendxml",
@@ -996,7 +1103,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "doctrine/doctrine-orm-module": 20
+        "doctrine/doctrine-orm-module": 20,
+        "hounddog/doctrine-data-fixture-module": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

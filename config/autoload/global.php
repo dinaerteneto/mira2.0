@@ -12,32 +12,16 @@
  * file.
  */
 return array(
-    
-    'doctrine_config' => array(
-        'driver' => 'pdo_sqlsrv',
-        //'driver' => 'sqlsrv',
-        'host' => 'localhost',
-        'user' => 'mira',
-        'password' => 'mira',
-        'dbname' => 'DB_Mira'
-    ),
-     /*
-    'db' => array(
-        'driver' => 'pdo',
-        'dsn' => 'sqlsrv:database=DB_Mira;Server=localhost',
-        'charset' => 'UTF-8',
-        'username' => 'mira',
-        'password' => 'mira',
-        'pdotype' => 'sqlsrv',
-        'platform_options' => array('quote_identifiers' => false),
-        'driver_options' => array(
-            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
-        ),
-    ),*/
-    'service_manager' => array(
-        'factories' => array(
-            'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
-            'Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory'
-        ),
-    ),
+    'mail' => array(
+        'name' => 'smtp.googlemail.com',
+        'host' => 'smtp.googlemail.com',
+        'connection_class' => 'login',
+        'connection_config' => array(
+            'username' => 'dinaerteneto@gmail.com',
+            'password' => 'x',
+            'ssl' => 'tls',
+            'port' => 465,
+            'from' => 'dinaerteneto@gmail.com'
+        )
+    )
 );

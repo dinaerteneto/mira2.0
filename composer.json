@@ -10,7 +10,8 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.*",
-        "doctrine/doctrine-orm-module": "dev-master"
+        "doctrine/doctrine-orm-module": "dev-master",
+        "hounddog/doctrine-data-fixture-module": "dev-master"
     },
     
     "minimum-stability": "dev"
