@@ -2,8 +2,10 @@
 
 namespace Usuario\Entity;
 
-
 use Doctrine\ORM\Mapping as ORM;
+
+use Zend\Math\Rand,
+    Zend\Crypt\Key\Derivation\Pbkdf2;
 
 /**
  * Usuario
@@ -11,8 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="usuario", uniqueConstraints={@ORM\UniqueConstraint(name="login", columns={"login"})})
  * @ORM\Entity
  */
-class Usuario
-{
+class Usuario {
+
     /**
      * @var string
      *
@@ -66,12 +68,12 @@ class Usuario
      * })
      */
     private $id;
-    
-    /*
-    public function __construct(array $options) {
-        (new Hydrator\ClassMethods())->hydrate($options, $this);
-    } */   
-    
+
+    public function __construct() {
+        $this->salt = base64_encode(Rand::getBytes(8, true));
+        $this->chaveAtivacao = md5($this->email . $this->salt);
+    }
+
     public function getLogin() {
         return $this->login;
     }
@@ -109,7 +111,7 @@ class Usuario
     }
 
     public function setSenha($senha) {
-        $this->senha = $senha;
+        $this->senha = $this->encryptPassword($senha);
     }
 
     public function setSalt($salt) {
@@ -124,10 +126,12 @@ class Usuario
         $this->chaveAtivacao = $chaveAtivacao;
     }
 
-    public function setId(\Usuario\Entity\Pessoa $id) {
+    public function setId(Pessoa $id) {
         $this->id = $id;
     }
 
+    public function encryptPassword($password) {
+        return base64_encode(Pbkdf2::calc('sha256', $password, $this->salt, 10000, strlen($password * 2)));
+    }
 
 }
-

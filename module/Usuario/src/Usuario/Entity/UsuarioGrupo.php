@@ -34,6 +34,27 @@ class UsuarioGrupo
      * @ORM\Column(name="tipo", type="string", length=4, nullable=true)
      */
     private $tipo;
+    
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getNome() {
+        return $this->nome;
+    }
+
+    public function getTipo() {
+        return $this->tipo;
+    }
+
+    public function setNome($nome) {
+        $this->nome = $nome;
+    }
+
+    public function setTipo($tipo) {
+        $this->tipo = $tipo;
+    }
+
 
 
 }

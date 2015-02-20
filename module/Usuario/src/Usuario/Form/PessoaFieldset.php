@@ -10,10 +10,10 @@ use Zend\InputFilter\InputFilterProviderInterface;
 class PessoaFieldset extends Fieldset implements InputFilterProviderInterface {
 
     public function __construct(ObjectManager $objectManager) {
-        parent::__construct('usuario');
+        parent::__construct('pessoa');
 
         $this->setHydrator(new DoctrineHydrator($objectManager))
-            ->setObject(new \Usuario\Entity\Usuario());
+            ->setObject(new \Usuario\Entity\Usuario(array()));
         
         $nome = new \Zend\Form\Element\Text('nome');
         $nome->setAttribute('placeholder', 'Nome');

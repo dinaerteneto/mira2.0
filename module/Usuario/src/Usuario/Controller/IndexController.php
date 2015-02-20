@@ -10,29 +10,18 @@ class IndexController extends AbstractActionController {
 
     public function registerAction() {
         $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-
         $form = new FormUsuario($objectManager);
 
-        $usuario = new \Usuario\Entity\Usuario();
-        $pessoa = new \Usuario\Entity\Pessoa();
-        $form->bind($usuario);
-        
         $request = $this->getRequest();
         if ($request->isPost()) {
             $form->setData($request->getPost());
             if ($form->isValid()) {
-
-                $objectManager->persist($pessoa);
-                $objectManager->flush();
-                
-                $usuario->setId($pessoa);
-                $objectManager->persist($usuario);
-                $objectManager->flush();
-                
-                $this->flashMessenger()
-                    ->setNamespace('Usuario')
-                    ->addMessage('Usuário cadastrado com sucesso');
-
+                $service = $this->getServiceLocator()->get("Usuario\Service\Usuario");
+                if ($service->insert($request->getPost()->toArray())) {
+                    $this->flashMessenger()
+                        ->setNamespace('Usuario')
+                        ->addMessage("Usuário cadastrado com sucesso");
+                }
                 return $this->redirect()->toRoute('usuario-register');
             }
         }
@@ -45,9 +34,9 @@ class IndexController extends AbstractActionController {
     }
 
     public function activateAction() {
-        $activationKey = $this->params()->toRoute('key');
+        $activationKey = $this->params()->fromRoute('key');
         $userService = $this->getServiceLocator()->get('Usuario\Service\Usuario');
-        $result = $userService->active($activationKey);
+        $result = $userService->activate($activationKey);
         if ($result) {
             return new ViewModel(array('usuario' => $result));
         }

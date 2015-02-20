@@ -11,10 +11,8 @@ class Usuario extends Form {
     public function __construct(ObjectManager $objectManager) {
         parent::__construct('usuario');
         
-        $this->setHydrator(new DoctrineHydrator($objectManager));        
-        
+        $this->setHydrator(new DoctrineHydrator($objectManager));                
         $this->setInputFilter(new UsuarioFilter());
-        // Add the user fieldset, and set it as the base fieldset
         $pessoaFieldset = new PessoaFieldset($objectManager);
         $pessoaFieldset->setUseAsBaseFieldset(true);
         $this->add($pessoaFieldset);        

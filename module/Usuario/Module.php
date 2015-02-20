@@ -13,7 +13,6 @@ namespace Usuario;
 use Zend\Mail\Transport\Smtp as SmtpTransport,
     Zend\Mail\Transport\SmtpOptions;
 
-
 class Module {
 
     public function getConfig() {
@@ -35,17 +34,15 @@ class Module {
             'factories' => array(
                 'Usuario\Mail\Transport' => function ($sm) {
                     $config = $sm->get('Config');
-                    
+
                     $transport = new SmtpTransport();
                     $options = new SmtpOptions($config['mail']);
                     $transport->setOptions($options);
-                    
+
                     return $transport;
                 },
                 'Usuario\Service\Usuario' => function ($sm) {
-                    return new Service\Usuario($sm->get('Doctrine\ORM\EntityManager'),
-                                               $sm->get('Usuario\Mail\Transport'),
-                                               $sm->get('View'));
+                    return new Service\Usuario($sm->get('Doctrine\ORM\EntityManager'), $sm->get('Usuario\Mail\Transport'), $sm->get('View'));
                 }
             )
         );

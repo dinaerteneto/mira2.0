@@ -34,6 +34,23 @@ class UsuarioAgrupamento
      */
     private $idUsuarioGrupo;
 
+    public function getIdUsuario() {
+        return $this->idUsuario;
+    }
 
+    public function getIdUsuarioGrupo() {
+        return $this->idUsuarioGrupo;
+    }
+
+    public function setIdUsuario(Usuario $idUsuario) {
+        $this->idUsuario = $idUsuario;
+    }
+
+    public function setIdUsuarioGrupo(UsuarioGrupo $idUsuarioGrupo) {
+        $this->idUsuarioGrupo = $idUsuarioGrupo;
+    }
+
+
+    
 }
 

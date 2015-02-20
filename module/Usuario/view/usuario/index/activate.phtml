@@ -1,7 +1,7 @@
-<?php
-if(isset($usuario)) {
-    echo 'Usuário ativado com sucesso';
-} else {
-    echo 'Usuário não encontrado';
-}
-?>
+<h3>Register</h3>
+
+<?php if (isset($this->usuario)): ?>
+    <p>Usuário ativado com sucesso!</p>
+<?php else: ?>
+    <p>Usuário não encontrado</p>
+<?php endif; ?>
