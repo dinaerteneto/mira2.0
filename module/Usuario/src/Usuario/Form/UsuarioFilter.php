@@ -19,6 +19,20 @@ class UsuarioFilter extends InputFilter {
                 array('name' => 'NotEmpty', 'options' => array('messages' => array('isEmpty' => 'Não pode estar em branco')))
             )
         ));
+
+        //email
+        $validator = new \Zend\Validator\EmailAddress;
+        $validator->setOptions(array('domain' => false));
+        
+        $this->add(array(
+            'name' => 'email',
+            'required' => true,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array($validator)
+        ));        
         
         //senha
         $this->add(array(
@@ -33,7 +47,20 @@ class UsuarioFilter extends InputFilter {
             )
         ));
         
-        
+        //confirmação de senha
+        $this->add(array(
+            'name' => 'senha_confirmacao',
+            'required' => true,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+            'validators' => array(
+                array('name' => 'NotEmpty', 'options' => array('messages' => array('isEmpty' => 'Não pode estar em branco')),
+                    'name' => 'Identical', 'options' => array('token' => 'senha')
+                )
+            )
+        ));
     }
 
 }

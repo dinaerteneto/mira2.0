@@ -20,9 +20,19 @@ class PessoaFilter extends InputFilter {
             )
         ));
         
-        //senha
+        //data_nascimento
         $this->add(array(
             'name' => 'data_nascimento',
+            'required' => true,
+            'filters' => array(
+                array('name' => 'StripTags'),
+                array('name' => 'StringTrim'),
+            ),
+        ));
+        
+        //cpf
+        $this->add(array(
+            'name' => 'cpf',
             'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
@@ -31,8 +41,7 @@ class PessoaFilter extends InputFilter {
             'validators' => array(
                 array('name' => 'NotEmpty', 'options' => array('messages' => array('isEmpty' => 'Não pode estar em branco')))
             )
-        ));
-        
+        ));        
         
     }
 

@@ -33,21 +33,9 @@ class Usuario extends AbstractService {
      * @param array $data
      * @return Usuario\Entity\Pessoa
      */
-    public function insert(array $data) {
-        $pessoa = new Pessoa($data);
-        $this->em->persist($pessoa);
-                
-        $usuario = new Usuario($data);
-        $this->em->persist($usuario);
-        
-        /*
-        $usuarioGrupo = new UsuarioGrupo($dataUsuarioGrupo);
-        $this->em->persist($usuarioGrupo);
-        
-        $usuarioAgrupamento = new UsuarioAgrupamento($dataUsuarioAgrupamento);
-        $this->em->persist($usuarioAgrupamento);
-        */
-        
+    public function insert(array $data) {                
+        $usuario = new Usuario();
+        $this->em->persist($usuario);        
         $this->em->flush();
         
         return $pessoa;

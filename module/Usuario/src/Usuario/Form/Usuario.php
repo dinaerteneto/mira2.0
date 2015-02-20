@@ -2,18 +2,28 @@
 
 namespace Usuario\Form;
 
+use Doctrine\Common\Persistence\ObjectManager;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 use Zend\Form\Form;
 
 class Usuario extends Form {
 
-    public function __construct($name = null, $options = array()) {
-        parent::__construct('usuario', $options);
+    public function __construct(ObjectManager $objectManager) {
+        parent::__construct('usuario');
+        
+        $this->setHydrator(new DoctrineHydrator($objectManager));        
+        
         $this->setInputFilter(new UsuarioFilter());
-        $this->setAttributes('method', 'post');
+        // Add the user fieldset, and set it as the base fieldset
+        $pessoaFieldset = new PessoaFieldset($objectManager);
+        $pessoaFieldset->setUseAsBaseFieldset(true);
+        $this->add($pessoaFieldset);        
 
+        $this->setAttribute('method', 'post');
+        
         $id = new \Zend\Form\Element\Hidden('id');
         $this->add($id);
-        
+               
         $login = new \Zend\Form\Element\Text('login');
         $login->setAttribute('placeholder', 'Login');
         $this->add($login);

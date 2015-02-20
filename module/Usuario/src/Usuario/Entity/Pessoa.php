@@ -1,6 +1,6 @@
 <?php
 
-
+namespace Usuario\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="pessoa", uniqueConstraints={@ORM\UniqueConstraint(name="cpf", columns={"cpf"})})
  * @ORM\Entity
  */
-class Pessoa
-{
+class Pessoa {
+
     /**
      * @var integer
      *
@@ -55,7 +55,64 @@ class Pessoa
      * @ORM\Column(name="alterado_em", type="datetime", nullable=false)
      */
     private $alteradoEm;
+    
+    
+    public function __construct(array $options = null) {
+        //(new Hydrator\ClassMethods())->hydrate($options, $this);
 
+        $this->adicionadoEm = new \DateTime("now");
+        $this->alteradoEm = new \DateTime("now");
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getNome() {
+        return $this->nome;
+    }
+
+    public function getDataNascimento() {
+        return $this->dataNascimento;
+    }
+
+    public function getCpf() {
+        return $this->cpf;
+    }
+
+    public function getAdicionadoEm() {
+        return $this->adicionadoEm;
+    }
+
+    public function getAlteradoEm() {
+        return $this->alteradoEm;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public function setNome($nome) {
+        $this->nome = $nome;
+    }
+
+    public function setDataNascimento(\DateTime $dataNascimento) {
+        $this->dataNascimento = $dataNascimento;
+    }
+
+    public function setCpf($cpf) {
+        $this->cpf = $cpf;
+    }
+
+    public function setAdicionadoEm() {
+        $this->adicionadoEm = new \DateTime("now");
+    }
+
+    /**
+     * @ORM\prePersist
+     */    
+    public function setAlteradoEm() {
+        $this->alteradoEm = new \DateTime("now");
+    }
 
 }
-

@@ -1,5 +1,6 @@
 <?php
 
+namespace Usuario\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
@@ -65,6 +66,67 @@ class Usuario
      * })
      */
     private $id;
+    
+    /*
+    public function __construct(array $options) {
+        (new Hydrator\ClassMethods())->hydrate($options, $this);
+    } */   
+    
+    public function getLogin() {
+        return $this->login;
+    }
+
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function getSenha() {
+        return $this->senha;
+    }
+
+    public function getSalt() {
+        return $this->salt;
+    }
+
+    public function getStatus() {
+        return $this->status;
+    }
+
+    public function getChaveAtivacao() {
+        return $this->chaveAtivacao;
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setLogin($login) {
+        $this->login = $login;
+    }
+
+    public function setEmail($email) {
+        $this->email = $email;
+    }
+
+    public function setSenha($senha) {
+        $this->senha = $senha;
+    }
+
+    public function setSalt($salt) {
+        $this->salt = $salt;
+    }
+
+    public function setStatus($status) {
+        $this->status = $status;
+    }
+
+    public function setChaveAtivacao($chaveAtivacao) {
+        $this->chaveAtivacao = $chaveAtivacao;
+    }
+
+    public function setId(\Usuario\Entity\Pessoa $id) {
+        $this->id = $id;
+    }
 
 
 }
