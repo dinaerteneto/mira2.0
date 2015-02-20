@@ -12,15 +12,16 @@ class Usuario extends Form {
         parent::__construct('usuario');
         
         $this->setHydrator(new DoctrineHydrator($objectManager));                
-        $this->setInputFilter(new UsuarioFilter());
         $pessoaFieldset = new PessoaFieldset($objectManager);
         $pessoaFieldset->setUseAsBaseFieldset(true);
         $this->add($pessoaFieldset);        
 
+        $this->setInputFilter(new UsuarioFilter());
         $this->setAttribute('method', 'post');
         
+        /*
         $id = new \Zend\Form\Element\Hidden('id');
-        $this->add($id);
+        $this->add($id);*/
                
         $login = new \Zend\Form\Element\Text('login');
         $login->setAttribute('placeholder', 'Login');

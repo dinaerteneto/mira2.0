@@ -2,21 +2,12 @@
 
 namespace Vivo\Entity;
 
+use Zend\Stdlib\Hydrator;
+
 abstract class AbstractEntity {
 
-    protected $inputFilter;
-
-    abstract public function getInputFilter();
-
-    public function exchangeArray($array) {
-        foreach ($array as $attribute => $value) {
-            $this->$attribute = $value;
-        }
-    }
-
-    abstract public function getArrayCopy();
-    
     public function toArray() {
-        return get_object_vars($this);
+        return (new Hydrator\ClassMethods())->extract($this);
     }
+
 }

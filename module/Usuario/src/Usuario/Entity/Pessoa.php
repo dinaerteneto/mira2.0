@@ -2,6 +2,8 @@
 
 namespace Usuario\Entity;
 
+use Vivo\Entity\AbstractEntity;
+
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -11,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="pessoa", uniqueConstraints={@ORM\UniqueConstraint(name="cpf", columns={"cpf"})})
  * @ORM\Entity
  */
-class Pessoa {
+class Pessoa extends AbstractEntity {
 
     /**
      * @var integer
@@ -74,7 +76,7 @@ class Pessoa {
     }
 
     public function getDataNascimento() {
-        return $this->dataNascimento;
+        return $this->dataNascimento->format('Y-m-d');
     }
 
     public function getCpf() {

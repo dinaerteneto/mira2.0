@@ -13,12 +13,12 @@ class PessoaFieldset extends Fieldset implements InputFilterProviderInterface {
         parent::__construct('pessoa');
 
         $this->setHydrator(new DoctrineHydrator($objectManager))
-            ->setObject(new \Usuario\Entity\Usuario(array()));
+            ->setObject(new \Usuario\Entity\Pessoa());
         
         $nome = new \Zend\Form\Element\Text('nome');
         $nome->setAttribute('placeholder', 'Nome');
         $this->add($nome);
-
+        
         $dataNascimento = new \Zend\Form\Element\Text('data_nascimento');
         $dataNascimento->setAttribute('placeholder', 'Data de Nasc.');
         $dataNascimento->setAttribute('class', 'mask-date');

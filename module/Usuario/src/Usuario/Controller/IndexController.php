@@ -2,13 +2,27 @@
 
 namespace Usuario\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController,
-    Zend\View\Model\ViewModel;
+use Vivo\Mvc\Controller\AbstractCrudController;
+use Zend\View\Model\ViewModel;
 use Usuario\Form\Usuario as FormUsuario;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 
-class IndexController extends AbstractActionController {
+class IndexController extends AbstractCrudController {
 
-    public function registerAction() {
+    public function __construct() {
+        $this->entity = 'Usuario\Entity\Usuario';
+        $this->form = 'Usuario\Form\Usuario';
+        $this->service = 'Usuario\Service\Usuario';
+        $this->controller = 'index';
+        $this->route = 'usuario';
+    }
+
+    /**
+     * Exibe o formulário de cadastro do usuário.
+     * Quando enviado o post então chama o serviço para persistir os dados
+     * @return ViewModel
+     */
+    public function createAction() {
         $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
         $form = new FormUsuario($objectManager);
 
@@ -22,7 +36,7 @@ class IndexController extends AbstractActionController {
                         ->setNamespace('Usuario')
                         ->addMessage("Usuário cadastrado com sucesso");
                 }
-                return $this->redirect()->toRoute('usuario-register');
+                return $this->redirect()->toRoute('usuario');
             }
         }
 
@@ -33,6 +47,39 @@ class IndexController extends AbstractActionController {
         return new ViewModel(array('form' => $form, 'messages' => $messages));
     }
 
+    /**
+     * altera os dados
+     */
+    public function updateAction() {
+        $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+        $form = new FormUsuario($objectManager);
+
+        $request = $this->getRequest();
+        $repository = $objectManager->getRepository('Usuario\Entity\Usuario');
+        $entity = $repository->find($this->params()->fromRoute('key', 0));
+        $data = $entity->toArray();
+        $data['pessoa'] = $entity->getId()->toArray();
+
+        if ($this->params()->fromRoute('key', 0)) {
+            unset($data['senha']);
+            $form->setData($data);
+        }
+
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+            if ($form->isValid()) {
+                $service = $this->getServiceLocator()->get($this->service);
+                $service->update($request->getPost()->toArray());
+                return $this->redirect()->toRoute($this->route, array('controller' => $this->controller));
+            }
+        }
+        return new ViewModel(array('form' => $form));
+    }
+
+    /**
+     * Faz a ativação do usuário e retorna uma view para informar sucesso ou fracasso
+     * @return ViewModel
+     */
     public function activateAction() {
         $activationKey = $this->params()->fromRoute('key');
         $userService = $this->getServiceLocator()->get('Usuario\Service\Usuario');

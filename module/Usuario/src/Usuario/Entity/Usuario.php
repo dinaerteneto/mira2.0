@@ -2,6 +2,8 @@
 
 namespace Usuario\Entity;
 
+use Vivo\Entity\AbstractEntity;
+
 use Doctrine\ORM\Mapping as ORM;
 
 use Zend\Math\Rand,
@@ -13,7 +15,7 @@ use Zend\Math\Rand,
  * @ORM\Table(name="usuario", uniqueConstraints={@ORM\UniqueConstraint(name="login", columns={"login"})})
  * @ORM\Entity
  */
-class Usuario {
+class Usuario extends AbstractEntity {
 
     /**
      * @var string
@@ -133,5 +135,5 @@ class Usuario {
     public function encryptPassword($password) {
         return base64_encode(Pbkdf2::calc('sha256', $password, $this->salt, 10000, strlen($password * 2)));
     }
-
+    
 }

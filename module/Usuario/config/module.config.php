@@ -5,17 +5,18 @@ namespace Usuario;
 return array(
     'router' => array(
         'routes' => array(
-            'usuario-register' => array(
+            /*
+            'usuario-create' => array(
                 'type' => 'Literal',
                 'options' => array(
-                    'route' => '/register',
+                    'route' => 'usuario/create',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Usuario\Controller',
                         'controller' => 'Index',
-                        'action' => 'register'
+                        'action' => 'create'
                     )
                 )
-            ),
+            ),*/
             
             'usuario-activate' => array(
                 'type' => 'segment',
@@ -31,9 +32,9 @@ return array(
             'usuario' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/usuario[/:action][/:key][page/:page]',
+                    'route' => '/usuario[/][/:action][/:key][page/:page]',
                     'defaults' => array(
-                        'controller' => 'Usuario\Controller\Usuario',
+                        'controller' => 'Usuario\Controller\Index',
                         'action' => 'index',
                         'key' => null,
                         'page' => 1

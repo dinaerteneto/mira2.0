@@ -2,176 +2,88 @@
 
 namespace Vivo\Mvc\Controller;
 
-use Vivo\Model\AbstractModel;
-use Zend\Form\Form;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\Paginator\Adapter\DbSelect;
-use Zend\Paginator\Paginator;
 use Zend\View\Model\ViewModel;
+use Zend\Paginator\Paginator;
+use Zend\Paginator\Adapter\ArrayAdapter;
 
 abstract class AbstractCrudController extends AbstractActionController {
 
-    protected $formClass;
-    protected $modelClass;
-    protected $namespaceTableGateway;
+    protected $em;
+    protected $service;
+    protected $entity;
+    protected $form;
     protected $route;
-    protected $tableGateway;
-    protected $title;
-    protected $label = array(
-        'add' => 'Add',
-        'edit' => 'Edit',
-        'yes' => 'Yes',
-        'no' => 'No'
-    );
+    protected $controller;
 
+    /**
+     * 
+     * @return EntityManager
+     */
+    private function getEm() {
+        if (null === $this->em) {
+            $this->em = $this->getServiceLocator()->get('Doctrine/ORM/EntityManager');
+        }
+        return $this->em;
+    }
+
+    /**
+     * listagem dos dados com paginação
+     */
     public function indexAction() {
-        $partialLoop = $this->getSm()->get('viewhelpermanager')->get('PartialLoop');
-        $partialLoop->setObjectKey('model');
+        $list = $this->getEm()
+            ->getRepository($this->entity)
+            ->findAll();
 
-        $urlAdd = $this->url()->fromRoute($this->route, array('action' => 'add'));
-        $urlEdit = $this->url()->fromRoute($this->route, array('action' => 'edit'));
-        $urlDelete = $this->url()->fromRoute($this->route, array('action' => 'delete'));
-        $urlHomepage = $this->url()->fromRoute('home');
+        $page = $this->params()->fromRoute('page');
 
-        $placeHolder = $this->getSm()->get('viewhelpermanager')->get('Placeholder');
-        $placeHolder('url')->edit = $urlEdit;
-        $placeHolder('url')->delete = $urlDelete;
+        $paginator = new Paginator(new ArrayAdapter($list));
+        $paginator->setCurrentPageNumber($page)
+            ->setDefaultItemCountPerPage(10);
 
-        $pageAdapter = new DbSelect($this->getTableGateway()->getSelect(), $this->getTableGateway()->getSql());
-        $paginator = new Paginator($pageAdapter);
-        $paginator->setCurrentPageNumber($this->params()->fromRoute('page', 1));
-
-        return new ViewModel(array(
-            'paginator' => $paginator,
-            'title' => $this->setAndGetTitle(),
-            'urlAdd' => $urlAdd,
-            'urlHomepage' => $urlHomepage
-        ));
+        return new ViewModel(array('data' => $paginator, 'page' => $page));
     }
 
-    public function addAction() {
-        $modelClass = $this->modelClass;
-        $model = new $modelClass();
+    /**
+     * persiste os dados
+     */
+    public function createAction() {
+        $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 
-        $formClass = $this->formClass;
-        $form = new $formClass();
-        $form->get('submit')->setValue($this->label['add']);
-        $form->bind($model);
-
-        $urlAction = $this->url()->fromRoute($this->route, array('action' => 'add'));
-
-        return $this->save($model, $form, $urlAction, null);
-    }
-
-    public function editAction() {
-        $key = (int) $this->params()->fromRoute('key', null);
-        if (is_null($key)) {
-            return $this->redirect()->toRoute($this->route, array(
-                    'action' => 'add'
-            ));
-        }
-        $model = $this->getTableGateway()->get($key);
-
-        $formClass = $this->formClass;
-        $form = new $formClass();
-        $form->bind($model);
-        $form->get('submit')->setAttribute('value', $this->label['edit']);
-
-        $urlAction = $this->url()->fromRoute($this->route, array(
-            'action' => 'edit',
-            'key' => $key
-        ));
-
-        return $this->save($model, $form, $urlAction, $key);
-    }
-
-    protected function save(AbstractModel $model, $form, $urlAction, $key) {
+        $form = new $this->form($objectManager);
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $form->setInputFilter($model->getInputFilter());
             $form->setData($request->getPost());
-
             if ($form->isValid()) {
-                $this->getTableGateway()->save($form->getData());
-
-                return $this->redirect()->toRoute($this->route);
+                $service = $this->getServiceLocator()->get($this->service);
+                $service->insert($request->getPost()->toArray());
+                return $this->redirect()->toRoute($this->route, array('controller' => $this->controller));
             }
         }
-
-        return array(
-            'key' => $key,
-            'form' => $form,
-            'urlAction' => $urlAction,
-            'title' => $this->setAndGetTitle()
-        );
+        return new ViewModel(array('form' => $form));
     }
-
-    public function deleteAction() {
-        $key = (int) $this->params()->fromRoute('key', null);
-        if (is_null($key)) {
-            return $this->redirect()->toRoute($this->route);
-        }
-
+    
+    /**
+     * altera os dados
+     */
+    public function updateAction() {
+        $form = new $this->form();
         $request = $this->getRequest();
+        $repository = $this->getEm()->getRepository($this->entity);
+        $entity = $repository->find($this->params()->fromRoute('id', 0));
+        
+        if($this->params()->fromRoute('id', 0)) {
+            $form->setData($entity->toArray());
+        }
+        
         if ($request->isPost()) {
-            $del = $request->getPost('del', $this->label['no']);
-
-            if ($del == $this->label['yes']) {
-                $this->getTableGateway()->delete($key);
+            $form->setData($request->getPost());
+            if ($form->isValid()) {
+                $service = $this->getServiceLocator()->get($this->service);
+                $service->update($request->getPost()->toArray());
+                return $this->redirect()->toRoute($this->route, array('controller' => $this->controller));
             }
-
-            return $this->redirect()->toRoute($this->route);
         }
-
-        $urlAction = $this->url()->fromRoute($this->route, array('action' => 'delete', 'key' => $key));
-
-        return array(
-            'form' => $this->getDeleteForm($key),
-            'urlAction' => $urlAction,
-            'title' => $this->setAndGetTitle()
-        );
+        return new ViewModel(array('form' => $form));
     }
-
-    public function getTableGateway() {
-        if (!$this->tableGateway) {
-            $sm = $this->getServiceLocator();
-            $this->tableGateway = $sm->get($this->namespaceTableGateway);
-        }
-        return $this->tableGateway;
-    }
-
-    public function getDeleteForm($key) {
-        $form = new Form();
-
-        $form->add(array(
-            'name' => 'del',
-            'attributes' => array(
-                'type' => 'submit',
-                'value' => $this->label['yes'],
-                'id' => 'del',
-            ),
-        ));
-
-        $form->add(array(
-            'name' => 'return',
-            'attributes' => array(
-                'type' => 'submit',
-                'value' => $this->label['no'],
-                'id' => 'return',
-            ),
-        ));
-
-        return $form;
-    }
-
-    private function getSm() {
-        return $this->getEvent()->getApplication()->getServiceManager();
-    }
-
-    private function setAndGetTitle() {
-        $headTitle = $this->getSm()->get('viewhelpermanager')->get('HeadTitle');
-        $headTitle($this->title);
-        return $this->title;
-    }
-
 }
