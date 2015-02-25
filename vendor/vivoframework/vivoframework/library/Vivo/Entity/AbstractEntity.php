@@ -10,4 +10,7 @@ abstract class AbstractEntity {
         return (new Hydrator\ClassMethods())->extract($this);
     }
 
+    public function getArrayCopy() {
+        return get_object_vars($this);
+    }
 }

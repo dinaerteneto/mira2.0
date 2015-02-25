@@ -309,4 +309,26 @@ class Pessoa extends \Usuario\Entity\Pessoa implements \Doctrine\ORM\Proxy\Proxy
         return parent::setAlteradoEm();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getArrayCopy()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getArrayCopy', array());
+
+        return parent::getArrayCopy();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function toArray()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'toArray', array());
+
+        return parent::toArray();
+    }
+
 }

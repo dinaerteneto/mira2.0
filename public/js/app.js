@@ -18,7 +18,13 @@ requirejs.config({
         'jquery.mb.browser': 'plugin/msie-fix/jquery.mb.browser.min',
         'fastclick': 'plugin/fastclick/fastclick.min',
         'init': 'app.min',
-        'voicecommand': 'speech/voicecommand.min'
+        'voicecommand': 'speech/voicecommand.min',
+        
+        'jquery.maskedinput': 'libs/jquery.maskedinput-1.3.1.min',
+        'jquery.maskmoney': 'libs/jquery.maskMoney.0.2',        
+        
+        'form': 'custom/form'
+        
     },
     shim: {
         'jquery.ui': {deps: ['jquery']},
@@ -36,6 +42,11 @@ requirejs.config({
         'jquery.mb.browser': {deps: ['jquery']},
         'fastclick': {deps: ['jquery']},
         'init': {deps: ['jquery', 'easy.pie.chart']},
+        
+        'jquery.masketinput': {deps: ['jquery']},
+        'jquery.maskmoney': {deps: ['jquery']},        
+        'form': {deps: ['jquery', 'jquery.maskedinput', 'jquery.maskmoney']}
+        
         //'voicecommand': {deps: ['jquery']}
     }
 });
@@ -58,6 +69,7 @@ define(
             'jquery.mb.browser',
             'fastclick',
             'init',
+            'form'
                     //'voicecommand'
         ], function ($) {
     pageSetUp();

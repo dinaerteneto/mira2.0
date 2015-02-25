@@ -1,16 +1,66 @@
-<h3>Register</h3>
+<article class="col-sm-12 col-md-12 col-lg-6 sortable-grid ui-sortable">
+    <div data-widget-custombutton="false" data-widget-editbutton="false" id="wid-id-1" class="jarviswidget jarviswidget-sortable" style="" role="widget">
+        <header role="heading">
+            <div class="jarviswidget-ctrls" role="menu">
+                <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse">
+                    <i class="fa fa-minus "></i>
+                </a>
+                <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-fullscreen-btn" href="javascript:void(0);" data-original-title="Fullscreen">
+                    <i class="fa fa-expand "></i>
+                </a>         
+            </div>
+            <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+            <h2>Usuário</h2>
+        </header>
+        <div role="content">
+            <div class="widget-body no-padding">
 
-<?php if($this->messages) : ?>
-<p><?= $this->messages[0];?></p>
-<?php else: ?>
+                <?php
+                /*
+                  $form = $this->form;
+                  $form->setAttribute('action', $this->url('usuario', array('controller' => 'index', 'action' => 'create')));
+                  $form->prepare();
+                  echo $this->form()->openTag($form);
+                  echo $this->formCollection($form);
+                  echo $this->form()->closeTag();
+                  */
+                ?>
+                
+                <?php
+                $form = $this->form;
+                $form->setAttribute('action', $this->url('usuario', array('controller' => 'index', 'action' => 'create')));
+                $form->prepare();
+                
+                echo $this->form()->openTag($form);
+                ?>
 
-<?php
-$form = $this->form;
-$form->setAttribute('action',$this->url('usuario', array('controller' => 'index', 'action' => 'create')));
-$form->prepare();
-echo $this->form()->openTag($form);
-echo $this->formCollection($form);
-echo $this->form()->closeTag();
-?>
+                <fieldset>
+                    <div class="row">
+                        <section class="col col-6">
+                            <label class="input">
+                                <i class="icon-prepend fa fa-user"></i>
+                                <?= $this->formRow($form->get('nome')); ?>
+                                <b class="tooltip tooltip-bottom-right">Digite seu nome</b>
+                            </label>
+                        </section>
 
-<?php endif; ?>
+                        <section class="col col-6">
+                            <label class="input">
+                                <i class="icon-append fa fa-calendar"></i>
+                                <?= $this->formRow($form->get('data_nascimento')); ?>
+                                <b class="tooltip tooltip-bottom-right">Digite sua data de nascimento</b>
+                            </label>
+                        </section>                    
+
+                    </div>
+                </fieldset>
+
+                <footer>
+                    <?= $this->formSubmit($form->get('submit')); ?>
+                </footer>
+
+                <?= $this->form()->closeTag(); ?>
+            </div>
+        </div>
+    </div>
+</article>

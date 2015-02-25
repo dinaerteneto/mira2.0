@@ -16,7 +16,7 @@ class UsuarioFilter extends InputFilter {
                 array('name' => 'StringTrim'),
             ),
             'validators' => array(
-                array('name' => 'NotEmpty', 'options' => array('messages' => array('isEmpty' => 'Não pode estar em branco')))
+                array('name' => 'NotEmpty', 'options' => array('messages' => array('isEmpty' => 'Nome não pode estar em branco')))
             )
         ));
 

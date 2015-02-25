@@ -57,12 +57,11 @@ class IndexController extends AbstractCrudController {
         $request = $this->getRequest();
         $repository = $objectManager->getRepository('Usuario\Entity\Usuario');
         $entity = $repository->find($this->params()->fromRoute('key', 0));
-        $data = $entity->toArray();
-        $data['pessoa'] = $entity->getId()->toArray();
-
+        
         if ($this->params()->fromRoute('key', 0)) {
-            unset($data['senha']);
-            $form->setData($data);
+            $array = array_merge($entity->toArray(), $entity->getId()->toArray());
+            unset($array['senha']);
+            $form->setData($array);
         }
 
         if ($request->isPost()) {
@@ -73,7 +72,7 @@ class IndexController extends AbstractCrudController {
                 return $this->redirect()->toRoute($this->route, array('controller' => $this->controller));
             }
         }
-        return new ViewModel(array('form' => $form));
+        return new ViewModel(array('form' => $form, 'key' => $this->params()->fromRoute('key', 0)));
     }
 
     /**

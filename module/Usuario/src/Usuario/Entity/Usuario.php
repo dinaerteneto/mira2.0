@@ -3,11 +3,10 @@
 namespace Usuario\Entity;
 
 use Vivo\Entity\AbstractEntity;
-
 use Doctrine\ORM\Mapping as ORM;
-
 use Zend\Math\Rand,
     Zend\Crypt\Key\Derivation\Pbkdf2;
+use Zend\Stdlib\Hydrator;
 
 /**
  * Usuario
@@ -71,7 +70,9 @@ class Usuario extends AbstractEntity {
      */
     private $id;
 
-    public function __construct() {
+    public function __construct(array $options = null) {
+        (new Hydrator\ClassMethods())->hydrate($options, $this);
+
         $this->salt = base64_encode(Rand::getBytes(8, true));
         $this->chaveAtivacao = md5($this->email . $this->salt);
     }
@@ -136,4 +137,8 @@ class Usuario extends AbstractEntity {
         return base64_encode(Pbkdf2::calc('sha256', $password, $this->salt, 10000, strlen($password * 2)));
     }
     
+    public function getArrayCopy() {
+        return get_object_vars($this);
+    }    
+
 }

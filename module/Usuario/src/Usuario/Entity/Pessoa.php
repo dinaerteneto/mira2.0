@@ -3,10 +3,8 @@
 namespace Usuario\Entity;
 
 use Vivo\Entity\AbstractEntity;
-
 use Doctrine\ORM\Mapping as ORM;
-
-
+use Zend\Stdlib\Hydrator;
 /**
  * Pessoa
  *
@@ -61,7 +59,7 @@ class Pessoa extends AbstractEntity {
     
     
     public function __construct(array $options = null) {
-        //(new Hydrator\ClassMethods())->hydrate($options, $this);
+        (new Hydrator\ClassMethods())->hydrate($options, $this);
 
         $this->adicionadoEm = new \DateTime("now");
         $this->alteradoEm = new \DateTime("now");
@@ -117,5 +115,9 @@ class Pessoa extends AbstractEntity {
     public function setAlteradoEm() {
         $this->alteradoEm = new \DateTime("now");
     }
-
+    
+    public function getArrayCopy() {
+        return get_object_vars($this);
+    }    
+    
 }
