@@ -10,8 +10,8 @@ $formatUrl = function ($page) use ($urlPattern) {
 
 if ($this->pageCount):
     ?>
-    <div class="pagination pagination-centered">
-        <ul>
+    <div class="dataTables_paginate paging_simple_numbers">
+        <ul class="pagination pagination-sm">
             <?php if (isset($this->previous)): ?>
                 <li><a href="<?php echo $formatUrl($this->previous); ?>">«</a></li>
             <?php else: ?>

@@ -13,6 +13,8 @@ use Zend\Stdlib\Hydrator;
  *
  * @ORM\Table(name="usuario", uniqueConstraints={@ORM\UniqueConstraint(name="login", columns={"login"})})
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
+ * @ORM\Entity(repositoryClass="Usuario\Entity\UsuarioRepository")
  */
 class Usuario extends AbstractEntity {
 

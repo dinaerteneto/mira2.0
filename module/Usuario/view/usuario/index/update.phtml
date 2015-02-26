@@ -1,16 +1,21 @@
-<h3>Editando usuário</h3>
-
-<?php if($this->messages) : ?>
-<p><?= $this->messages[0];?></p>
-<?php else: ?>
-
-<?php
-$form = $this->form;
-$form->setAttribute('action',$this->url('usuario', array('controller' => 'index', 'action' => 'update', 'key' => $this->key)));
-$form->prepare();
-echo $this->form()->openTag($form);
-echo $this->formCollection($form);
-echo $this->form()->closeTag();
-?>
-
-<?php endif; ?>
+<article class="col-sm-12 col-md-12 col-lg-6 sortable-grid ui-sortable">
+    <div data-widget-custombutton="false" data-widget-editbutton="false" id="wid-id-1" class="jarviswidget jarviswidget-sortable" style="" role="widget">
+        <header role="heading">
+            <div class="jarviswidget-ctrls" role="menu">
+                <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse">
+                    <i class="fa fa-minus "></i>
+                </a>
+                <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-fullscreen-btn" href="javascript:void(0);" data-original-title="Fullscreen">
+                    <i class="fa fa-expand "></i>
+                </a>         
+            </div>
+            <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+            <h2>Usuário</h2>
+        </header>
+        <div role="content">
+            <div class="widget-body no-padding">
+                <?= $this->partial('form.phtml') ?>
+            </div>
+        </div>
+    </div>
+</article>

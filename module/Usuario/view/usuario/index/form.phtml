@@ -1,0 +1,92 @@
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('usuario', array('controller' => 'index', 'action' => $this->urlAction, 'key' => isset($this->key) ? $this->key : null)));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+
+$this->formElementErrors()
+     ->setMessageOpenFormat('<div%s class="note note-error">');
+
+?>
+
+<fieldset>
+    <div class="row">
+        <section class="col col-6">
+            <?= $this->formLabel($form->get('nome')); ?>
+            <label class="input">
+                <i class="icon-prepend fa fa-user"></i>
+                <?= $this->formInput($form->get('nome')); ?>
+                <?= $this->formElementErrors($form->get('nome')); ?>
+            </label>
+        </section>
+
+        <section class="col col-6">
+            <?= $this->formLabel($form->get('email')); ?>
+            <label class="input">
+                <i class="icon-prepend fa fa-envelope-o"></i>
+                <?= $this->formInput($form->get('email')); ?>
+                <?= $this->formElementErrors($form->get('email')); ?>
+            </label>
+        </section>                        
+    </div>
+
+    <div class="row">
+        <section class="col col-6">
+            <?= $this->formLabel($form->get('data_nascimento')); ?>
+            <label class="input">
+                <i class="icon-prepend fa fa-calendar"></i>
+                <?= $this->formInput($form->get('data_nascimento')); ?>
+                <?= $this->formElementErrors($form->get('data_nascimento')); ?>
+            </label>
+        </section>                    
+
+        <section class="col col-6">
+            <?= $this->formLabel($form->get('cpf')); ?>
+            <label class="input">
+                <?= $this->formInput($form->get('cpf')); ?>
+            </label>
+        </section>                    
+    </div>
+
+</fieldset>
+
+<fieldset>
+    <div class="row">               
+        <section class="col col-6">                      
+            <?= $this->formLabel($form->get('login')); ?>
+            <label class="input">
+                <i class="icon-prepend fa fa-user"></i>
+                <?= $this->formInput($form->get('login')); ?>
+                <?= $this->formElementErrors($form->get('login')); ?>
+            </label>
+        </section>  
+
+        <section class="col col-6">
+            <?= $this->formLabel($form->get('senha')); ?>
+            <label class="input">
+                <i class="icon-prepend fa fa-lock"></i>
+                <?= $this->formInput($form->get('senha')); ?>
+                <?= $this->formElementErrors($form->get('senha')); ?>
+            </label>
+        </section>                         
+    </div>
+    <div class="row">       
+        <section class="col col-6">
+            <?= $this->formLabel($form->get('senha_confirmacao')); ?>
+            <label class="input">
+                <i class="icon-prepend fa fa-lock"></i>
+                <?= $this->formInput($form->get('senha_confirmacao')); ?>
+                <?= $this->formElementErrors($form->get('senha_confirmacao')); ?>
+            </label>
+        </section>  
+    </div>
+</fieldset>
+
+<footer>
+    <?= $this->formRow($form->get('id')); ?>
+    <?= $this->formRow($form->get('security')); ?>
+    <?= $this->formSubmit($form->get('submit')); ?>
+</footer>
+
+<?= $this->form()->closeTag(); ?>

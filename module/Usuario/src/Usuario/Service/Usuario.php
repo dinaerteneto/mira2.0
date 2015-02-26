@@ -5,7 +5,6 @@ namespace Usuario\Service;
 use Doctrine\ORM\EntityManager;
 use Zend\Stdlib\Hydrator;
 use Zend\Mail\Transport\Smtp as SmtpTransport;
-use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 
 class Usuario extends AbstractService {
 
@@ -31,8 +30,8 @@ class Usuario extends AbstractService {
      */
     public function insert(array $data) {
         unset($data['id']);
-        $data['data_nascimento'] = \DateTime::createFromFormat('Y-m-d', $data['data_nascimento']);
-
+        $data['data_nascimento'] = \DateTime::createFromFormat('d/m/Y', $data['data_nascimento']);
+        
         //persiste a pessoa
         $pessoa = new \Usuario\Entity\Pessoa($data);
         $this->em->persist($pessoa);
@@ -77,7 +76,7 @@ class Usuario extends AbstractService {
         $key = $data['id'];
         unset($data['id']);
       
-        $data['data_nascimento'] = \DateTime::createFromFormat('Y-m-d', $data['data_nascimento']);
+        $data['data_nascimento'] = \DateTime::createFromFormat('d/m/Y', $data['data_nascimento']);
         
         $pessoa = $this->em->getReference('Usuario\Entity\Pessoa', $key);
         (new Hydrator\ClassMethods())->hydrate($data, $pessoa);

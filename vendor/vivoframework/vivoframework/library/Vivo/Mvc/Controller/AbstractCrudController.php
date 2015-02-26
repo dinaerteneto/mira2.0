@@ -62,7 +62,7 @@ abstract class AbstractCrudController extends AbstractActionController {
         }
         return new ViewModel(array('form' => $form));
     }
-    
+
     /**
      * altera os dados
      */
@@ -70,12 +70,12 @@ abstract class AbstractCrudController extends AbstractActionController {
         $form = new $this->form();
         $request = $this->getRequest();
         $repository = $this->getEm()->getRepository($this->entity);
-        $entity = $repository->find($this->params()->fromRoute('id', 0));
-        
-        if($this->params()->fromRoute('id', 0)) {
+        $entity = $repository->find($this->params()->fromRoute('key', 0));
+
+        if ($this->params()->fromRoute('key', 0)) {
             $form->setData($entity->toArray());
         }
-        
+
         if ($request->isPost()) {
             $form->setData($request->getPost());
             if ($form->isValid()) {
@@ -86,4 +86,16 @@ abstract class AbstractCrudController extends AbstractActionController {
         }
         return new ViewModel(array('form' => $form));
     }
+    
+    /**
+     * remove o registro
+     * @return Response
+     */
+    public function deleteAction() {
+        $service = $this->getServiceLocator()->get($this->service);
+        if ($service->delete($this->params()->fromRoute('key', 0))) {
+            return $this->redirect()->toRoute($this->route, array('controller' => $this->controller));
+        }
+    }
+
 }

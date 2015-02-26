@@ -37,14 +37,14 @@ class IndexController extends AbstractCrudController {
                         ->addMessage("Usuário cadastrado com sucesso");
                 }
                 return $this->redirect()->toRoute('usuario');
-            }
+            } 
         }
-
+        
         $messages = $this->flashMessenger()
             ->setNamespace('Usuario')
             ->getMessages();
 
-        return new ViewModel(array('form' => $form, 'messages' => $messages));
+        return new ViewModel(array('form' => $form, 'urlAction' => 'create', 'messages' => $messages));
     }
 
     /**
@@ -57,9 +57,10 @@ class IndexController extends AbstractCrudController {
         $request = $this->getRequest();
         $repository = $objectManager->getRepository('Usuario\Entity\Usuario');
         $entity = $repository->find($this->params()->fromRoute('key', 0));
-        
+
         if ($this->params()->fromRoute('key', 0)) {
             $array = array_merge($entity->toArray(), $entity->getId()->toArray());
+
             unset($array['senha']);
             $form->setData($array);
         }
@@ -69,10 +70,10 @@ class IndexController extends AbstractCrudController {
             if ($form->isValid()) {
                 $service = $this->getServiceLocator()->get($this->service);
                 $service->update($request->getPost()->toArray());
-                return $this->redirect()->toRoute($this->route, array('controller' => $this->controller));
+                return $this->redirect()->toRoute($this->route, array('controller' => $this->controller, 'action' => 'index'));
             }
         }
-        return new ViewModel(array('form' => $form, 'key' => $this->params()->fromRoute('key', 0)));
+        return new ViewModel(array('form' => $form, 'urlAction' => 'update', 'key' => $this->params()->fromRoute('key', 0)));
     }
 
     /**

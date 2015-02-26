@@ -1,0 +1,15 @@
+<h3>Login</h3>
+
+<?php if($this->error): ?>
+<p>Usuário ou senha inválida</p>
+<?php endif; ?>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('usuario-auth'));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formCollection($form);
+echo $this->form()->closeTag();
+?>
