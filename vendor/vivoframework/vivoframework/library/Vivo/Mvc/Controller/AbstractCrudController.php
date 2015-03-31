@@ -20,9 +20,9 @@ abstract class AbstractCrudController extends AbstractActionController {
      * 
      * @return EntityManager
      */
-    private function getEm() {
+    protected function getEm() {
         if (null === $this->em) {
-            $this->em = $this->getServiceLocator()->get('Doctrine/ORM/EntityManager');
+            $this->em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
         }
         return $this->em;
     }
@@ -54,6 +54,7 @@ abstract class AbstractCrudController extends AbstractActionController {
         $request = $this->getRequest();
         if ($request->isPost()) {
             $form->setData($request->getPost());
+            
             if ($form->isValid()) {
                 $service = $this->getServiceLocator()->get($this->service);
                 $service->insert($request->getPost()->toArray());
@@ -70,9 +71,9 @@ abstract class AbstractCrudController extends AbstractActionController {
         $form = new $this->form();
         $request = $this->getRequest();
         $repository = $this->getEm()->getRepository($this->entity);
-        $entity = $repository->find($this->params()->fromRoute('key', 0));
+        $entity = $repository->find($this->params()->fromRoute('id', 0));
 
-        if ($this->params()->fromRoute('key', 0)) {
+        if ($this->params()->fromRoute('id', 0)) {
             $form->setData($entity->toArray());
         }
 
@@ -93,7 +94,7 @@ abstract class AbstractCrudController extends AbstractActionController {
      */
     public function deleteAction() {
         $service = $this->getServiceLocator()->get($this->service);
-        if ($service->delete($this->params()->fromRoute('key', 0))) {
+        if ($service->delete($this->params()->fromRoute('id', 0))) {
             return $this->redirect()->toRoute($this->route, array('controller' => $this->controller));
         }
     }

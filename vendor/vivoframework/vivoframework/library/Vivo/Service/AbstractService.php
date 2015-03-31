@@ -3,11 +3,12 @@
 namespace Vivo\Service;
 
 use Doctrine\ORM\EntityManager;
-use Pessoa\Entity\Configurator;
+use Zend\Stdlib\Hydrator;
 
 abstract class AbstractService {
 
     /**
+     *
      * @var EntityManager
      */
     protected $em;
@@ -27,11 +28,10 @@ abstract class AbstractService {
 
     public function update(array $data) {
         $entity = $this->em->getReference($this->entity, $data['id']);
-        $entity = Configurator::configure($entity, $data);
+        (new Hydrator\ClassMethods())->hydrate($data, $entity);
 
         $this->em->persist($entity);
         $this->em->flush();
-
         return $entity;
     }
 

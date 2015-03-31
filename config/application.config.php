@@ -7,7 +7,8 @@ return array(
         'DoctrineORMModule',  
         'DoctrineDataFixtureModule',
         'Base',
-        'Usuario',
+       // 'Usuario',
+        'Acl'
     ),
 
     // These are various options for the listeners attached to the ModuleManager

@@ -10,6 +10,8 @@ use Usuario\Entity\Pessoa;
 class LoadUser extends AbstractFixture {
 
     public function load(ObjectManager $manager) {
+        
+        /*
         $pessoa = new Pessoa();
         $pessoa->setNome('Elissandra');
         $pessoa->setDataNascimento(new \DateTime("now"));
@@ -21,6 +23,8 @@ class LoadUser extends AbstractFixture {
         $manager->persist($pessoa);
                 
         $manager->flush();
+         * 
+         */
     }
 
 }
